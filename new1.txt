@@ -1,0 +1,15 @@
+import groovy.json.JsonSlurper
+import com.eviware.soapui.model.testsuite.TestRunner.Status
+//testRunner.testCase.testSuite.project.setPropertyValue("currency","lkr");
+def tCase=testRunner.testCase.testSuite.testCases["getResponse"]
+def ctest=tCase.testSteps["getR"]
+ctest.run(testRunner,context)
+def addDetails=ctest.testRequest.response.responseContent
+def jsonSlurper=new JsonSlurper()
+def object=jsonSlurper.parseText(addDetails)
+log.info(object.capital)
+if(object.captial==("Colombo")){
+	log.info "Pass"
+}else{
+	log.info "Api-Fail"
+}
